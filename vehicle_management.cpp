@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 
 // Base class
 class Vehicle {
@@ -49,25 +50,37 @@ public:
     }
 };
 
-// Main function to demonstrate the Vehicle Management System
-int main() {
-    // Creating a vector to store Vehicle pointers
-    std::vector<Vehicle*> vehicles;
+// Vehicle Management System
+class VehicleManagementSystem {
+private:
+    std::vector<std::unique_ptr<Vehicle>> vehicles;
 
-    // Adding vehicles to the system
-    vehicles.push_back(new Car("Toyota", 2020, 4));
-    vehicles.push_back(new Motorcycle("Harley-Davidson", 2018, true));
-
-    // Displaying vehicle information
-    for (const auto& vehicle : vehicles) {
-        vehicle->displayInfo();
-        std::cout << "----------------------" << std::endl;
+public:
+    void addVehicle(std::unique_ptr<Vehicle> vehicle) {
+        vehicles.push_back(std::move(vehicle));
     }
 
-    // Cleaning up dynamically allocated memory
-    for (auto& vehicle : vehicles) {
-        delete vehicle;
+    void removeVehicle(const std::string& brand) {
+        vehicles.erase(std::remove_if(vehicles.begin(), vehicles.end(),
+                                      [&brand](const std::unique_ptr<Vehicle>& vehicle) {
+                                          return vehicle->getBrand() == brand;
+                                      }),
+                       vehicles.end());
     }
 
-    return 0;
-}
+    void displayVehicles() const {
+        for (const auto& vehicle : vehicles) {
+            vehicle->displayInfo();
+            std::cout << "----------------------" << std::endl;
+        }
+    }
+
+    Vehicle* searchVehicle(const std::string& brand) const {
+        for (const auto& vehicle : vehicles) {
+            if (vehicle->getBrand() == brand) {
+                return vehicle.get();
+            }
+        }
+        return nullptr;
+    }
+};
