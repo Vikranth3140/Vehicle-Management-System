@@ -1,7 +1,8 @@
+#include <algorithm>
 #include <iostream>
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
 // Base class
 class Vehicle {
@@ -15,6 +16,10 @@ public:
 
     virtual void displayInfo() const {
         std::cout << "Brand: " << brand << "\nYear: " << year << std::endl;
+    }
+
+    virtual std::string getBrand() const {
+        return brand;
     }
 
     virtual ~Vehicle() {}
@@ -84,3 +89,81 @@ public:
         return nullptr;
     }
 };
+
+void showMenu() {
+    std::cout << "Vehicle Management System\n";
+    std::cout << "1. Add Car\n";
+    std::cout << "2. Add Motorcycle\n";
+    std::cout << "3. Remove Vehicle\n";
+    std::cout << "4. Display Vehicles\n";
+    std::cout << "5. Search Vehicle\n";
+    std::cout << "6. Exit\n";
+}
+
+int main() {
+    VehicleManagementSystem vms;
+    int choice;
+
+    do {
+        showMenu();
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
+
+        switch (choice) {
+        case 1: {
+            std::string brand;
+            int year, numDoors;
+            std::cout << "Enter brand: ";
+            std::cin >> brand;
+            std::cout << "Enter year: ";
+            std::cin >> year;
+            std::cout << "Enter number of doors: ";
+            std::cin >> numDoors;
+            vms.addVehicle(std::make_unique<Car>(brand, year, numDoors));
+            break;
+        }
+        case 2: {
+            std::string brand;
+            int year;
+            bool hasSidecar;
+            std::cout << "Enter brand: ";
+            std::cin >> brand;
+            std::cout << "Enter year: ";
+            std::cin >> year;
+            std::cout << "Has sidecar (1 for yes, 0 for no): ";
+            std::cin >> hasSidecar;
+            vms.addVehicle(std::make_unique<Motorcycle>(brand, year, hasSidecar));
+            break;
+        }
+        case 3: {
+            std::string brand;
+            std::cout << "Enter brand to remove: ";
+            std::cin >> brand;
+            vms.removeVehicle(brand);
+            break;
+        }
+        case 4:
+            vms.displayVehicles();
+            break;
+        case 5: {
+            std::string brand;
+            std::cout << "Enter brand to search: ";
+            std::cin >> brand;
+            Vehicle* vehicle = vms.searchVehicle(brand);
+            if (vehicle) {
+                vehicle->displayInfo();
+            } else {
+                std::cout << "Vehicle not found.\n";
+            }
+            break;
+        }
+        case 6:
+            std::cout << "Exiting...\n";
+            break;
+        default:
+            std::cout << "Invalid choice. Please try again.\n";
+        }
+    } while (choice != 6);
+
+    return 0;
+}
