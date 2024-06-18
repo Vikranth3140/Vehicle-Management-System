@@ -107,15 +107,19 @@ public:
         vehicles.push_back(std::move(vehicle));
     }
 
-    void removeVehicle(const std::string& brand) {
+    void removeVehicle(const std::string& brand, int year) {
         vehicles.erase(std::remove_if(vehicles.begin(), vehicles.end(),
-                                      [&brand](const std::unique_ptr<Vehicle>& vehicle) {
-                                          return vehicle->getBrand() == brand;
+                                      [&brand, year](const std::unique_ptr<Vehicle>& vehicle) {
+                                          return vehicle->getBrand() == brand && vehicle->getYear() == year;
                                       }),
                        vehicles.end());
     }
 
     void displayVehicles() const {
+        if (vehicles.empty()) {
+            std::cout << "No vehicles in the system.\n";
+            return;
+        }
         for (const auto& vehicle : vehicles) {
             vehicle->displayInfo();
             std::cout << "----------------------" << std::endl;
@@ -130,16 +134,28 @@ public:
         }
         return nullptr;
     }
+
+    void updateVehicle(const std::string& brand, int year) {
+        for (auto& vehicle : vehicles) {
+            if (vehicle->getBrand() == brand && vehicle->getYear() == year) {
+                vehicle->updateInfo();
+                return;
+            }
+        }
+        std::cout << "Vehicle not found.\n";
+    }
 };
 
 void showMenu() {
     std::cout << "Vehicle Management System\n";
     std::cout << "1. Add Car\n";
     std::cout << "2. Add Motorcycle\n";
-    std::cout << "3. Remove Vehicle\n";
-    std::cout << "4. Display Vehicles\n";
-    std::cout << "5. Search Vehicle\n";
-    std::cout << "6. Exit\n";
+    std::cout << "3. Add Truck\n";
+    std::cout << "4. Remove Vehicle\n";
+    std::cout << "5. Display Vehicles\n";
+    std::cout << "6. Search Vehicle\n";
+    std::cout << "7. Update Vehicle\n";
+    std::cout << "8. Exit\n";
 }
 
 int main() {
@@ -179,15 +195,31 @@ int main() {
         }
         case 3: {
             std::string brand;
-            std::cout << "Enter brand to remove: ";
+            int year;
+            double loadCapacity;
+            std::cout << "Enter brand: ";
             std::cin >> brand;
-            vms.removeVehicle(brand);
+            std::cout << "Enter year: ";
+            std::cin >> year;
+            std::cout << "Enter load capacity (in tons): ";
+            std::cin >> loadCapacity;
+            vms.addVehicle(std::make_unique<Truck>(brand, year, loadCapacity));
             break;
         }
-        case 4:
+        case 4: {
+            std::string brand;
+            int year;
+            std::cout << "Enter brand to remove: ";
+            std::cin >> brand;
+            std::cout << "Enter year to remove: ";
+            std::cin >> year;
+            vms.removeVehicle(brand, year);
+            break;
+        }
+        case 5:
             vms.displayVehicles();
             break;
-        case 5: {
+        case 6: {
             std::string brand;
             std::cout << "Enter brand to search: ";
             std::cin >> brand;
@@ -199,13 +231,23 @@ int main() {
             }
             break;
         }
-        case 6:
+        case 7: {
+            std::string brand;
+            int year;
+            std::cout << "Enter brand to update: ";
+            std::cin >> brand;
+            std::cout << "Enter year to update: ";
+            std::cin >> year;
+            vms.updateVehicle(brand, year);
+            break;
+        }
+        case 8:
             std::cout << "Exiting...\n";
             break;
         default:
             std::cout << "Invalid choice. Please try again.\n";
         }
-    } while (choice != 6);
+    } while (choice != 8);
 
     return 0;
 }
