@@ -94,6 +94,7 @@ public:
         Vehicle::updateInfo();
         std::cout << "Enter new load capacity: ";
         std::cin >> loadCapacity;
+    }
 };
 
 // Vehicle Management System
