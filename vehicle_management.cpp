@@ -22,6 +22,16 @@ public:
         return brand;
     }
 
+    virtual int getYear() const {
+        return year;
+    }
+
+    virtual void updateInfo() {
+        std::cout << "Enter new brand: ";
+        std::cin >> brand;
+        std::cout << "Enter new year: ";
+        std::cin >> year;
+    }
     virtual ~Vehicle() {}
 };
 
@@ -38,6 +48,12 @@ public:
         Vehicle::displayInfo();
         std::cout << "Number of doors: " << numDoors << std::endl;
     }
+    }
+
+    void updateInfo() override {
+        Vehicle::updateInfo();
+        std::cout << "Enter new number of doors: ";
+        std::cin >> numDoors;
 };
 
 // Derived class for Motorcycles
@@ -53,6 +69,31 @@ public:
         Vehicle::displayInfo();
         std::cout << "Has sidecar: " << (hasSidecar ? "Yes" : "No") << std::endl;
     }
+    void updateInfo() override {
+        Vehicle::updateInfo();
+        std::cout << "Has sidecar (1 for yes, 0 for no): ";
+        std::cin >> hasSidecar;
+    }
+};
+
+// Derived class for Trucks
+class Truck : public Vehicle {
+private:
+    double loadCapacity;
+
+public:
+    Truck(const std::string& brand, int year, double loadCapacity)
+        : Vehicle(brand, year), loadCapacity(loadCapacity) {}
+
+    void displayInfo() const override {
+        Vehicle::displayInfo();
+        std::cout << "Load capacity: " << loadCapacity << " tons" << std::endl;
+    }
+
+    void updateInfo() override {
+        Vehicle::updateInfo();
+        std::cout << "Enter new load capacity: ";
+        std::cin >> loadCapacity;
 };
 
 // Vehicle Management System
