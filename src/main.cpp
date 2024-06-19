@@ -105,8 +105,11 @@ void updateVehicle(VehicleManagementSystem& vms) {
     std::cin >> brand;
     std::cout << "Year: ";
     std::cin >> year;
-    vms.updateVehicle(brand, year);
-    std::cout << "Vehicle updated successfully.\n";
+    if (vms.updateVehicle(brand, year)) {
+        std::cout << "Vehicle updated successfully.\n";
+    } else {
+        std::cout << "Vehicle not found.\n";
+    }
 }
 
 int main() {

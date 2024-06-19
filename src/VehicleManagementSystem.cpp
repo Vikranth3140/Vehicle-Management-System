@@ -33,12 +33,12 @@ Vehicle* VehicleManagementSystem::searchVehicle(const std::string& brand) const 
     return nullptr;
 }
 
-void VehicleManagementSystem::updateVehicle(const std::string& brand, int year) {
+bool VehicleManagementSystem::updateVehicle(const std::string& brand, int year) {
     for (auto& vehicle : vehicles) {
         if (vehicle->getBrand() == brand && vehicle->getYear() == year) {
             vehicle->updateInfo();
-            return;
+            return true;
         }
     }
-    std::cout << "Vehicle not found.\n";
+    return false;
 }
