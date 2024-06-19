@@ -1,7 +1,7 @@
 #include "Car.hpp"
 
-Car::Car(const std::string& brand, int year, int numDoors)
-    : Vehicle(brand, year), numDoors(numDoors) {}
+Car::Car(int id, const std::string& brand, int year, int numDoors)
+    : Vehicle(id, brand, year), numDoors(numDoors) {}
 
 void Car::displayInfo() const {
     Vehicle::displayInfo();

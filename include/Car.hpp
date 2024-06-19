@@ -8,7 +8,7 @@ private:
     int numDoors;
 
 public:
-    Car(const std::string& brand, int year, int numDoors);
+    Car(int id, const std::string& brand, int year, int numDoors);
 
     void displayInfo() const override;
     void updateInfo() override;

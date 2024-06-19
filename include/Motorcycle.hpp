@@ -8,7 +8,7 @@ private:
     bool hasSidecar;
 
 public:
-    Motorcycle(const std::string& brand, int year, bool hasSidecar);
+    Motorcycle(int id, const std::string& brand, int year, bool hasSidecar);
 
     void displayInfo() const override;
     void updateInfo() override;

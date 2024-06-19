@@ -8,7 +8,7 @@ private:
     double loadCapacity;
 
 public:
-    Truck(const std::string& brand, int year, double loadCapacity);
+    Truck(int id, const std::string& brand, int year, double loadCapacity);
 
     void displayInfo() const override;
     void updateInfo() override;

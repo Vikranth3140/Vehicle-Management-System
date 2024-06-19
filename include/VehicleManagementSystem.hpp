@@ -8,13 +8,15 @@
 class VehicleManagementSystem {
 private:
     std::vector<std::unique_ptr<Vehicle>> vehicles;
+    int nextId = 1; // Auto-incrementing ID
 
 public:
     void addVehicle(std::unique_ptr<Vehicle> vehicle);
-    bool removeVehicle(const std::string& brand, int year);
+    bool removeVehicle(int id);
     void displayVehicles() const;
-    Vehicle* searchVehicle(const std::string& brand) const;
-    bool updateVehicle(const std::string& brand, int year);
+    Vehicle* searchVehicle(int id) const;
+    bool updateVehicle(int id);
+    int generateNextId();
 };
 
 #endif // VEHICLEMANAGEMENTSYSTEM_HPP

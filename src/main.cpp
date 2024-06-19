@@ -34,6 +34,7 @@ void showMenu() {
 void addCar(VehicleManagementSystem& vms) {
     std::string brand;
     int year, numDoors;
+    int id = vms.generateNextId();
     std::cout << "\nEnter Car Details:\n";
     std::cout << "------------------\n";
     std::cout << "Brand: ";
@@ -42,14 +43,15 @@ void addCar(VehicleManagementSystem& vms) {
     std::cin >> year;
     std::cout << "Number of doors: ";
     std::cin >> numDoors;
-    vms.addVehicle(std::make_unique<Car>(brand, year, numDoors));
-    std::cout << "\nCar added successfully.\n";
+    vms.addVehicle(std::make_unique<Car>(id, brand, year, numDoors));
+    std::cout << "\nCar added successfully with ID: " << id << "\n";
 }
 
 void addMotorcycle(VehicleManagementSystem& vms) {
     std::string brand;
     int year;
     bool hasSidecar;
+    int id = vms.generateNextId();
     std::cout << "\nEnter Motorcycle Details:\n";
     std::cout << "-------------------------\n";
     std::cout << "Brand: ";
@@ -58,14 +60,15 @@ void addMotorcycle(VehicleManagementSystem& vms) {
     std::cin >> year;
     std::cout << "Has sidecar (1 for yes, 0 for no): ";
     std::cin >> hasSidecar;
-    vms.addVehicle(std::make_unique<Motorcycle>(brand, year, hasSidecar));
-    std::cout << "\nMotorcycle added successfully.\n";
+    vms.addVehicle(std::make_unique<Motorcycle>(id, brand, year, hasSidecar));
+    std::cout << "\nMotorcycle added successfully with ID: " << id << "\n";
 }
 
 void addTruck(VehicleManagementSystem& vms) {
     std::string brand;
     int year;
     double loadCapacity;
+    int id = vms.generateNextId();
     std::cout << "\nEnter Truck Details:\n";
     std::cout << "--------------------\n";
     std::cout << "Brand: ";
@@ -74,20 +77,17 @@ void addTruck(VehicleManagementSystem& vms) {
     std::cin >> year;
     std::cout << "Load capacity (in tons): ";
     std::cin >> loadCapacity;
-    vms.addVehicle(std::make_unique<Truck>(brand, year, loadCapacity));
-    std::cout << "\nTruck added successfully.\n";
+    vms.addVehicle(std::make_unique<Truck>(id, brand, year, loadCapacity));
+    std::cout << "\nTruck added successfully with ID: " << id << "\n";
 }
 
 void removeVehicle(VehicleManagementSystem& vms) {
-    std::string brand;
-    int year;
-    std::cout << "\nEnter Vehicle Details to Remove:\n";
-    std::cout << "--------------------------------\n";
-    std::cout << "Brand: ";
-    std::cin >> brand;
-    std::cout << "Year: ";
-    std::cin >> year;
-    if (vms.removeVehicle(brand, year)) {
+    int id;
+    std::cout << "\nEnter Vehicle ID to Remove:\n";
+    std::cout << "---------------------------\n";
+    std::cout << "ID: ";
+    std::cin >> id;
+    if (vms.removeVehicle(id)) {
         std::cout << "\nVehicle removed successfully.\n";
     } else {
         std::cout << "\nVehicle not found.\n";
@@ -95,12 +95,12 @@ void removeVehicle(VehicleManagementSystem& vms) {
 }
 
 void searchVehicle(VehicleManagementSystem& vms) {
-    std::string brand;
-    std::cout << "\nEnter Brand to Search:\n";
-    std::cout << "----------------------\n";
-    std::cout << "Brand: ";
-    std::cin >> brand;
-    Vehicle* vehicle = vms.searchVehicle(brand);
+    int id;
+    std::cout << "\nEnter Vehicle ID to Search:\n";
+    std::cout << "---------------------------\n";
+    std::cout << "ID: ";
+    std::cin >> id;
+    Vehicle* vehicle = vms.searchVehicle(id);
     if (vehicle) {
         std::cout << "\n";
         vehicle->displayInfo();
@@ -110,15 +110,12 @@ void searchVehicle(VehicleManagementSystem& vms) {
 }
 
 void updateVehicle(VehicleManagementSystem& vms) {
-    std::string brand;
-    int year;
-    std::cout << "\nEnter Vehicle Details to Update:\n";
-    std::cout << "--------------------------------\n";
-    std::cout << "Brand: ";
-    std::cin >> brand;
-    std::cout << "Year: ";
-    std::cin >> year;
-    if (vms.updateVehicle(brand, year)) {
+    int id;
+    std::cout << "\nEnter Vehicle ID to Update:\n";
+    std::cout << "---------------------------\n";
+    std::cout << "ID: ";
+    std::cin >> id;
+    if (vms.updateVehicle(id)) {
         std::cout << "\nVehicle updated successfully.\n";
     } else {
         std::cout << "\nVehicle not found.\n";
@@ -159,7 +156,7 @@ int main() {
             updateVehicle(vms);
             break;
         case 8:
-            std::cout << "Exiting...\n";
+            std::cout << "Thank You!\nExiting...\n";
             break;
         default:
             std::cout << "Invalid choice. Please try again.\n";

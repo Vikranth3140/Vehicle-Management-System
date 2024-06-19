@@ -6,16 +6,16 @@
 
 class Vehicle {
 protected:
+    int id;
     std::string brand;
     int year;
 
 public:
-    Vehicle(const std::string& brand, int year);
+    Vehicle(int id, const std::string& brand, int year);
     virtual ~Vehicle();
 
     virtual void displayInfo() const;
-    virtual std::string getBrand() const;
-    virtual int getYear() const;
+    int getId() const;
     virtual void updateInfo();
 };
 

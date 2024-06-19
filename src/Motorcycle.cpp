@@ -1,7 +1,7 @@
 #include "Motorcycle.hpp"
 
-Motorcycle::Motorcycle(const std::string& brand, int year, bool hasSidecar)
-    : Vehicle(brand, year), hasSidecar(hasSidecar) {}
+Motorcycle::Motorcycle(int id, const std::string& brand, int year, bool hasSidecar)
+    : Vehicle(id, brand, year), hasSidecar(hasSidecar) {}
 
 void Motorcycle::displayInfo() const {
     Vehicle::displayInfo();
