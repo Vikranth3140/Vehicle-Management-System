@@ -53,7 +53,7 @@ This is a simple console-based Vehicle Management System implemented in C++. It 
 
    ```sh
    git clone https://github.com/Vikranth3140/Vehicle-Management-System.git
-   cd vehicle_management_system
+   cd Vehicle-Management-System
    ```
 
 2. **Compile the project:**
