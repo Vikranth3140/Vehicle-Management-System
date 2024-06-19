@@ -11,7 +11,7 @@ private:
 
 public:
     void addVehicle(std::unique_ptr<Vehicle> vehicle);
-    void removeVehicle(const std::string& brand, int year);
+    bool removeVehicle(const std::string& brand, int year);
     void displayVehicles() const;
     Vehicle* searchVehicle(const std::string& brand) const;
     bool updateVehicle(const std::string& brand, int year);

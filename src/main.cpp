@@ -78,8 +78,11 @@ void removeVehicle(VehicleManagementSystem& vms) {
     std::cin >> brand;
     std::cout << "Year: ";
     std::cin >> year;
-    vms.removeVehicle(brand, year);
-    std::cout << "Vehicle removed successfully.\n";
+    if (vms.removeVehicle(brand, year)) {
+        std::cout << "Vehicle removed successfully.\n";
+    } else {
+        std::cout << "Vehicle not found.\n";
+    }
 }
 
 void searchVehicle(VehicleManagementSystem& vms) {
