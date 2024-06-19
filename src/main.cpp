@@ -1,10 +1,19 @@
 #include <iostream>
 #include <memory>
+#include <cstdlib>
 #include "VehicleManagementSystem.hpp"
 #include "Car.hpp"
 #include "Motorcycle.hpp"
 #include "Truck.hpp"
 #include "Utils.hpp"
+
+void clearScreen() {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
 
 void showMenu() {
     std::cout << "\n==============================\n";
@@ -117,6 +126,8 @@ void updateVehicle(VehicleManagementSystem& vms) {
 }
 
 int main() {
+    clearScreen();
+
     VehicleManagementSystem vms;
     int choice;
 
