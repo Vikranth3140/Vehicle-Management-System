@@ -1,4 +1,5 @@
 #include "VehicleManagementSystem.hpp"
+#include <algorithm> // Include this header for std::remove_if
 
 void VehicleManagementSystem::addVehicle(std::unique_ptr<Vehicle> vehicle) {
     vehicles.push_back(std::move(vehicle));
