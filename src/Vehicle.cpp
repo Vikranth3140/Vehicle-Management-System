@@ -1,19 +1,15 @@
 #include "Vehicle.hpp"
 
-Vehicle::Vehicle(const std::string& brand, int year) : brand(brand), year(year) {}
+Vehicle::Vehicle(int id, const std::string& brand, int year) : id(id), brand(brand), year(year) {}
 
 Vehicle::~Vehicle() {}
 
 void Vehicle::displayInfo() const {
-    std::cout << "Brand: " << brand << "\nYear: " << year << std::endl;
+    std::cout << "ID: " << id << "\nBrand: " << brand << "\nYear: " << year << std::endl;
 }
 
-std::string Vehicle::getBrand() const {
-    return brand;
-}
-
-int Vehicle::getYear() const {
-    return year;
+int Vehicle::getId() const {
+    return id;
 }
 
 void Vehicle::updateInfo() {

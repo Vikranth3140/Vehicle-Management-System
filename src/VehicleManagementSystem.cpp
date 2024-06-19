@@ -5,10 +5,10 @@ void VehicleManagementSystem::addVehicle(std::unique_ptr<Vehicle> vehicle) {
     vehicles.push_back(std::move(vehicle));
 }
 
-bool VehicleManagementSystem::removeVehicle(const std::string& brand, int year) {
+bool VehicleManagementSystem::removeVehicle(int id) {
     auto it = std::remove_if(vehicles.begin(), vehicles.end(),
-                             [&brand, year](const std::unique_ptr<Vehicle>& vehicle) {
-                                 return vehicle->getBrand() == brand && vehicle->getYear() == year;
+                             [id](const std::unique_ptr<Vehicle>& vehicle) {
+                                 return vehicle->getId() == id;
                              });
     if (it != vehicles.end()) {
         vehicles.erase(it, vehicles.end());
@@ -28,21 +28,25 @@ void VehicleManagementSystem::displayVehicles() const {
     }
 }
 
-Vehicle* VehicleManagementSystem::searchVehicle(const std::string& brand) const {
+Vehicle* VehicleManagementSystem::searchVehicle(int id) const {
     for (const auto& vehicle : vehicles) {
-        if (vehicle->getBrand() == brand) {
+        if (vehicle->getId() == id) {
             return vehicle.get();
         }
     }
     return nullptr;
 }
 
-bool VehicleManagementSystem::updateVehicle(const std::string& brand, int year) {
+bool VehicleManagementSystem::updateVehicle(int id) {
     for (auto& vehicle : vehicles) {
-        if (vehicle->getBrand() == brand && vehicle->getYear() == year) {
+        if (vehicle->getId() == id) {
             vehicle->updateInfo();
             return true;
         }
     }
     return false;
+}
+
+int VehicleManagementSystem::generateNextId() {
+    return nextId++;
 }
