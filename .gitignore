@@ -1,1 +1,8 @@
-vehicle_management
+# vehicle_management
+obj/Car.o
+obj/main.o
+obj/Motorcycle.o
+obj/Truck.o
+obj/Vehicle.o
+obj/VehicleManagementSystem.o
+bin/vehicle_management
