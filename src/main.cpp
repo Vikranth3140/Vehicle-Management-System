@@ -34,7 +34,7 @@ void addCar(VehicleManagementSystem& vms) {
     std::cout << "Number of doors: ";
     std::cin >> numDoors;
     vms.addVehicle(std::make_unique<Car>(brand, year, numDoors));
-    std::cout << "Car added successfully.\n";
+    std::cout << "\nCar added successfully.\n";
 }
 
 void addMotorcycle(VehicleManagementSystem& vms) {
@@ -50,7 +50,7 @@ void addMotorcycle(VehicleManagementSystem& vms) {
     std::cout << "Has sidecar (1 for yes, 0 for no): ";
     std::cin >> hasSidecar;
     vms.addVehicle(std::make_unique<Motorcycle>(brand, year, hasSidecar));
-    std::cout << "Motorcycle added successfully.\n";
+    std::cout << "\nMotorcycle added successfully.\n";
 }
 
 void addTruck(VehicleManagementSystem& vms) {
@@ -66,7 +66,7 @@ void addTruck(VehicleManagementSystem& vms) {
     std::cout << "Load capacity (in tons): ";
     std::cin >> loadCapacity;
     vms.addVehicle(std::make_unique<Truck>(brand, year, loadCapacity));
-    std::cout << "Truck added successfully.\n";
+    std::cout << "\nTruck added successfully.\n";
 }
 
 void removeVehicle(VehicleManagementSystem& vms) {
@@ -79,9 +79,9 @@ void removeVehicle(VehicleManagementSystem& vms) {
     std::cout << "Year: ";
     std::cin >> year;
     if (vms.removeVehicle(brand, year)) {
-        std::cout << "Vehicle removed successfully.\n";
+        std::cout << "\nVehicle removed successfully.\n";
     } else {
-        std::cout << "Vehicle not found.\n";
+        std::cout << "\nVehicle not found.\n";
     }
 }
 
@@ -93,9 +93,10 @@ void searchVehicle(VehicleManagementSystem& vms) {
     std::cin >> brand;
     Vehicle* vehicle = vms.searchVehicle(brand);
     if (vehicle) {
+        std::cout << "\n";
         vehicle->displayInfo();
     } else {
-        std::cout << "Vehicle not found.\n";
+        std::cout << "\nVehicle not found.\n";
     }
 }
 
@@ -109,9 +110,9 @@ void updateVehicle(VehicleManagementSystem& vms) {
     std::cout << "Year: ";
     std::cin >> year;
     if (vms.updateVehicle(brand, year)) {
-        std::cout << "Vehicle updated successfully.\n";
+        std::cout << "\nVehicle updated successfully.\n";
     } else {
-        std::cout << "Vehicle not found.\n";
+        std::cout << "\nVehicle not found.\n";
     }
 }
 
@@ -123,6 +124,7 @@ int main() {
         showMenu();
         std::cin >> choice;
 
+        std::cout << "\n";
         switch (choice) {
         case 1:
             addCar(vms);
@@ -151,6 +153,8 @@ int main() {
         default:
             std::cout << "Invalid choice. Please try again.\n";
         }
+
+        std::cout << "\n";
     } while (choice != 8);
 
     return 0;
